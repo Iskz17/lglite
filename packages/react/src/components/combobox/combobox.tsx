@@ -70,6 +70,7 @@ export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(funct
   const [open, setOpen] = React.useState(false);
   const [uncontrolled, setUncontrolled] = React.useState(defaultValue ?? "");
   const value = valueProp ?? uncontrolled;
+  const listId = React.useId();
 
   const selected = options.find((o) => o.value === value);
 
@@ -87,6 +88,8 @@ export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(funct
           variant="outline"
           role="combobox"
           aria-expanded={open}
+          aria-haspopup="listbox"
+          aria-controls={open ? listId : undefined}
           className={cn("lg-combobox__trigger", className)}
           {...props}
         >
@@ -97,7 +100,7 @@ export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(funct
       <PopoverContent align="start" frosted={frosted} plate={plate} className="lg-combobox__content">
         <Command>
           <CommandInput placeholder={searchPlaceholder} />
-          <CommandList>
+          <CommandList id={listId}>
             <CommandEmpty>{emptyText}</CommandEmpty>
             <CommandGroup>
               {options.map((option) => (
