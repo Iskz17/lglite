@@ -42,7 +42,7 @@
   },
   "files": [
     "dist",
-    "src/components",
+    "src/components/**/*.css",
     "src/styles.css"
   ],
   "scripts": {
