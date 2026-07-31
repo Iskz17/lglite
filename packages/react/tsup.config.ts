@@ -15,7 +15,8 @@ export default defineConfig({
   format: ["esm"],
   dts: true,
   splitting: true,
-  treeshake: true,
+  // no `treeshake`: tsup's rollup post-pass strips module-level directives, which
+  // deletes the banner below. esbuild + per-entry splitting already tree-shake.
   clean: true,
   external: ["react", "react-dom", "@lglite/glass-core"],
   // client-only library: the directive makes every chunk work under RSC bundlers

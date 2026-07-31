@@ -29,11 +29,13 @@
       "import": "./dist/index.js"
     },
     "./styles.css": "./src/styles/index.css",
-    "./styles/*": "./src/styles/*"
+    "./styles/*": "./src/styles/*",
+    "./package.json": "./package.json"
   },
   "files": ["dist", "src/styles"],
   "scripts": {
     "build": "tsup",
+    "prepublishOnly": "tsup",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {

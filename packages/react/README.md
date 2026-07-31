@@ -34,14 +34,21 @@ export function App() {
 
 ## Bundle size
 
-Imports are tree-shakeable: one Button costs about 15 KB gzip (engine included),
-not the whole library. If your bundler struggles with barrels, per-component
-subpaths guarantee it:
+Imports are tree-shakeable: one Button costs about 15 KB gzip of JS (engine
+included, plus the shared stylesheet), not the whole library. If your bundler
+struggles with barrels, per-component subpaths guarantee it:
 
 ```tsx
 import { Button } from "@lglite/react/components/button";
 import { Card, CardHeader } from "@lglite/react/components/card";
 ```
+
+## Requirements
+
+- ESM only (no CommonJS `require`)
+- `styles.css` uses a package import internally, so it needs a bundler that
+  resolves package specifiers in CSS (Vite, Next.js, webpack with css-loader,
+  and friends all do)
 
 ## The material scale
 
@@ -59,7 +66,8 @@ Refraction (`backdrop-filter: url()`) renders on desktop Chromium only today
 gets clean frosted glass. `forced-colors` and `prefers-contrast: more` disable
 glass entirely and keep real boundaries.
 
-Docs, storybook and the full component list: https://github.com/Iskz17/lglite
+Docs, the full component list, and the Storybook (run locally with
+`pnpm storybook`): https://github.com/Iskz17/lglite
 
 ## License
 

@@ -328,7 +328,7 @@ export function App() {
           <h2>The components you already know</h2>
           <p className="section-sub">
             shadcn names, glass material. Eight live specimens over the engine's own test
-            patterns; about forty more in the Storybook.
+            patterns; about forty more in the repo's Storybook.
           </p>
           <div className="catalog__grid">
             {CATALOG.map((c) => (
