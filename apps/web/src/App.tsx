@@ -25,7 +25,7 @@ import {
   Toggle,
 } from "@lglite/react";
 
-const GITHUB_URL = "https://github.com"; // TODO: real repo URL once public
+const GITHUB_URL = "https://github.com/Iskz17/lglite";
 
 // Inline SVG glyphs (same approach as the storybook Dock story: no icon-lib dep).
 const Glyph = ({ d }: { d: string }) => (
