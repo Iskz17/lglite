@@ -32,6 +32,17 @@ export function App() {
 }
 ```
 
+## Bundle size
+
+Imports are tree-shakeable: one Button costs about 15 KB gzip (engine included),
+not the whole library. If your bundler struggles with barrels, per-component
+subpaths guarantee it:
+
+```tsx
+import { Button } from "@lglite/react/components/button";
+import { Card, CardHeader } from "@lglite/react/components/card";
+```
+
 ## The material scale
 
 Every glass component supports the same levers:
