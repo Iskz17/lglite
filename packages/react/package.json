@@ -1,6 +1,30 @@
 {
   "name": "@lglite/react",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Liquid Glass components for React. shadcn-style API, real edge refraction on desktop Chromium, honest frost everywhere else, WCAG AA one prop away.",
+  "license": "MIT",
+  "author": "Iskandar Roslen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iskz17/lglite.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/Iskz17/lglite",
+  "bugs": "https://github.com/Iskz17/lglite/issues",
+  "keywords": [
+    "react",
+    "components",
+    "liquid-glass",
+    "glassmorphism",
+    "shadcn",
+    "ui",
+    "design-system",
+    "backdrop-filter",
+    "radix"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": [
     "*.css"

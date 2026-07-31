@@ -1,6 +1,26 @@
 {
   "name": "@lglite/glass-core",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "The glass engine behind @lglite/react: tokens, provider, Chromium refraction rim lens, accessibility fallbacks.",
+  "license": "MIT",
+  "author": "Iskandar Roslen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iskz17/lglite.git",
+    "directory": "packages/glass-core"
+  },
+  "homepage": "https://github.com/Iskz17/lglite",
+  "bugs": "https://github.com/Iskz17/lglite/issues",
+  "keywords": [
+    "liquid-glass",
+    "glassmorphism",
+    "backdrop-filter",
+    "design-tokens",
+    "react"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "sideEffects": ["*.css"],
   "exports": {
