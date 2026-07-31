@@ -1,0 +1,23 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-form__item {
+    display: grid;
+    gap: 0.5rem;
+  }
+  .lg-form__desc {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-form__msg {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    font-weight: 500;
+    color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-label[data-error] {
+    color: rgb(var(--glass-tone-destructive));
+  }
+}

@@ -1,0 +1,15 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-separator {
+    flex-shrink: 0;
+    background: rgb(var(--glass-rim) / 0.3);
+  }
+  .lg-separator[data-orientation="horizontal"] {
+    height: 1px;
+    width: 100%;
+  }
+  .lg-separator[data-orientation="vertical"] {
+    width: 1px;
+    height: 100%;
+  }
+}

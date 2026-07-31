@@ -1,0 +1,89 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-otp {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .lg-otp:has(:disabled) {
+    opacity: 0.5;
+  }
+  .lg-otp__group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  /* Each slot is an inset field cell — same recessed look as .lg-input. */
+  .lg-otp__slot {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: calc(var(--glass-radius) - 4px);
+    color: rgb(var(--glass-fg));
+    font: inherit;
+    font-size: 1.125rem;
+    background: rgb(var(--glass-tint) / calc(var(--glass-tint-opacity) + 0.04));
+    backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.12);
+    transition:
+      border-color var(--glass-duration) var(--glass-ease),
+      box-shadow var(--glass-duration) var(--glass-ease);
+  }
+  /* Refraction lens (Chromium-only; useGlassLens sets --lg-rim-filter). Must live
+     in this @layer to beat the base .lg-otp__slot backdrop-filter above. */
+  [data-lg-refraction="on"] .lg-otp__slot.lg-lens {
+    backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation)) var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+    -webkit-backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation)) var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+  }
+  .lg-otp__slot[data-active] {
+    border-color: rgb(var(--glass-tone-primary));
+    outline: 2px solid rgb(var(--glass-tone-primary));
+    outline-offset: 2px;
+  }
+  /* invalid → destructive rim (consumer sets aria-invalid on the container) */
+  .lg-otp[aria-invalid="true"] .lg-otp__slot {
+    border-color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-otp[aria-invalid="true"] .lg-otp__slot[data-active] {
+    outline-color: rgb(var(--glass-tone-destructive));
+  }
+  /* Inset → opaque fill in aa (kills the small blur) */
+  [data-lg-contrast="aa"] .lg-otp__slot {
+    background: rgb(var(--glass-plate-bg));
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .lg-otp__caret-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .lg-otp__caret {
+    width: 1px;
+    height: 1.125rem;
+    background: rgb(var(--glass-fg));
+    animation: lg-otp-blink 1s steps(2, start) infinite;
+  }
+  @keyframes lg-otp-blink {
+    to {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-otp__caret {
+      animation: none;
+    }
+  }
+  .lg-otp__sep {
+    color: rgb(var(--glass-fg-muted));
+    user-select: none;
+  }
+}

@@ -1,0 +1,83 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-resizable {
+    display: flex;
+    height: 100%;
+    width: 100%;
+  }
+  .lg-resizable[data-panel-group-direction="vertical"] {
+    flex-direction: column;
+  }
+  /* bespoke control glass: tint fill + rim + small blur */
+  .lg-resizable__handle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 1px;
+    background: rgb(var(--glass-tint) / var(--glass-tint-opacity));
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    backdrop-filter: blur(4px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(4px) saturate(var(--glass-saturation));
+    outline: none;
+    transition: background var(--glass-duration-fast) var(--glass-ease);
+  }
+  .lg-resizable__handle:hover,
+  .lg-resizable__handle[data-resize-handle-state="hover"],
+  .lg-resizable__handle[data-resize-handle-state="drag"],
+  .lg-resizable__handle:focus-visible {
+    background: rgb(var(--glass-rim) / 0.7);
+  }
+  .lg-resizable__handle:focus-visible {
+    box-shadow: 0 0 0 2px rgb(var(--glass-tone-primary) / 0.6);
+  }
+  /* vertical group → horizontal handle line */
+  .lg-resizable[data-panel-group-direction="vertical"] > .lg-resizable__handle {
+    flex: 0 0 1px;
+  }
+  .lg-resizable__grip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.75rem;
+    height: 1.25rem;
+    border-radius: 4px;
+    background: rgb(var(--glass-plate-bg) / 0.6);
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    backdrop-filter: blur(4px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(4px) saturate(var(--glass-saturation));
+    color: rgb(var(--glass-fg-muted));
+    z-index: 1;
+  }
+  /* Liquid Glass: route the grip nub's backdrop-filter through the lens (Chromium). */
+  [data-lg-refraction="on"] .lg-resizable__grip.lg-lens {
+    backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation))
+      var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+    -webkit-backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation))
+      var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+  }
+  .lg-resizable[data-panel-group-direction="vertical"] .lg-resizable__grip {
+    width: 1.25rem;
+    height: 0.75rem;
+    transform: rotate(90deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-resizable__handle {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    .lg-resizable__handle {
+      background: CanvasText;
+      border-color: CanvasText;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lg-resizable__grip {
+      background: Canvas;
+      border-color: CanvasText;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+}

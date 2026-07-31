@@ -1,0 +1,26 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-drawer {
+    position: fixed;
+    z-index: 51;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    max-height: 82vh;
+    padding: 1rem 1.5rem 1.5rem;
+    border-radius: calc(var(--glass-radius) + 6px) calc(var(--glass-radius) + 6px) 0 0;
+  }
+  .lg-drawer--plate {
+    background: rgb(var(--glass-plate-bg) / var(--glass-plate-opacity));
+  }
+  .lg-drawer__handle {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 0.3125rem;
+    margin: 0 auto 1rem;
+    border-radius: 9999px;
+    background: rgb(var(--glass-fg-muted) / 0.4);
+  }
+}

@@ -1,0 +1,66 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-menu {
+    z-index: 50;
+    min-width: 11rem;
+    padding: 0.375rem;
+    border-radius: var(--glass-radius);
+    transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+  }
+  .lg-menu__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: calc(var(--glass-radius) - 6px);
+    font-size: 0.875rem;
+    color: rgb(var(--glass-fg));
+    cursor: default;
+    user-select: none;
+    outline: none;
+  }
+  .lg-menu__item--inset {
+    padding-left: 1.625rem;
+  }
+  /* highlight = a tint wash, not a second blur layer ([spec 23 §perf]) */
+  .lg-menu__item[data-highlighted] {
+    background: rgb(var(--glass-tint) / calc(var(--glass-tint-opacity) + 0.18));
+  }
+  .lg-menu__item[data-disabled] {
+    color: rgb(var(--glass-fg-muted));
+    pointer-events: none;
+  }
+  .lg-menu__indicator {
+    position: absolute;
+    left: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+  }
+  .lg-menu__chevron {
+    margin-left: auto;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-menu__label {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.75rem;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-menu__shortcut {
+    margin-left: auto;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-menu__sep {
+    height: 1px;
+    margin: 0.25rem 0;
+    background: rgb(var(--glass-rim) / 0.3);
+  }
+  /* lg-pop-in keyframes live in glass-core surface.css (always loaded) */
+  @media (prefers-reduced-motion: no-preference) {
+    .lg-menu[data-state="open"] {
+      animation: lg-pop-in var(--glass-duration-fast) var(--glass-ease);
+    }
+  }
+}

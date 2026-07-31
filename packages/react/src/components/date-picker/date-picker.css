@@ -1,0 +1,17 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-datepicker__trigger {
+    justify-content: flex-start;
+    min-width: 14rem;
+    font-weight: 400;
+  }
+  /* Placeholder reads muted until a date is chosen. */
+  .lg-datepicker__trigger[data-empty] {
+    color: rgb(var(--glass-fg-muted));
+  }
+  /* Calendar already has its own padding rhythm; tighten the popover around it. */
+  .lg-datepicker__content {
+    padding: 0.75rem;
+    width: auto;
+  }
+}

@@ -1,0 +1,45 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  /* layout ONLY — the glass material (bg, blur, rim, shadow, radius, fg) + the
+     a11y.css fallbacks come from .lg-surface (added in sonner.tsx classNames). */
+  .lg-toast {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1rem;
+  }
+  .lg-toast__title {
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  .lg-toast__description {
+    font-size: 0.8125rem;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-toast__action {
+    padding: 0.25rem 0.625rem;
+    border: 0;
+    border-radius: calc(var(--glass-radius) - 8px);
+    background: rgb(var(--glass-tone-primary) / 0.9);
+    color: rgb(255 255 255);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .lg-toast__cancel {
+    padding: 0.25rem 0.625rem;
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    border-radius: calc(var(--glass-radius) - 8px);
+    background: transparent;
+    color: rgb(var(--glass-fg-muted));
+    font-size: 0.8125rem;
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-toast {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}

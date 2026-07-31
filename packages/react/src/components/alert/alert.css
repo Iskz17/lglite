@@ -1,0 +1,41 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-alert {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem;
+    /* tone accent rides a real left border so it survives forced-colors */
+    border-left: 3px solid rgb(var(--glass-rim) / 0.5);
+  }
+  .lg-alert--primary {
+    border-left-color: rgb(var(--glass-tone-primary));
+  }
+  .lg-alert--destructive {
+    border-left-color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-alert--success {
+    border-left-color: rgb(var(--glass-tone-success));
+  }
+  .lg-alert__title {
+    margin: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: rgb(var(--glass-fg));
+  }
+  .lg-alert--primary .lg-alert__title {
+    color: rgb(var(--glass-tone-primary));
+  }
+  .lg-alert--destructive .lg-alert__title {
+    color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-alert--success .lg-alert__title {
+    color: rgb(var(--glass-tone-success));
+  }
+  .lg-alert__desc {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: rgb(var(--glass-fg-muted));
+  }
+}

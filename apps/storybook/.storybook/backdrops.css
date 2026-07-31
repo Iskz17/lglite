@@ -1,0 +1,79 @@
+.lg-bg {
+  min-height: 100vh;
+  width: 100%;
+}
+.lg-stage {
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+}
+
+/* Grid: straight lines so edge lensing visibly BOWS them at the rim. */
+.lg-bg--grid {
+  background-color: #ced9e8;
+  background-image:
+    linear-gradient(rgb(30 60 120 / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(30 60 120 / 0.5) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Real photo, scrolling continuously bottom -> top, so refraction can be judged
+   against live imagery. Motion is on a transform-animated ::before layer (GPU
+   composited) — NOT background-position — to avoid backdrop-filter flicker.
+   The moving layer must NOT be an ANCESTOR of the glass (transform = backdrop
+   root would kill refraction); it's a sibling behind a plain-stacked stage. */
+.lg-bg--photo {
+  position: relative;
+  overflow: hidden;
+  background: #0b1020;
+}
+.lg-bg--photo > .lg-stage {
+  position: relative;
+  z-index: 1; /* plain stacking context (NOT a backdrop root) → glass still samples the photo */
+}
+.lg-bg--photo::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -18%;
+  height: 136%;
+  z-index: 0;
+  background: url("https://images.unsplash.com/photo-1542051841857-5f90071e7989?q=80&w=1600&h=2800&fit=crop") center / cover no-repeat;
+  will-change: transform;
+  animation: lg-photo-pan 5s linear infinite alternate;
+}
+@keyframes lg-photo-pan {
+  from {
+    transform: translate3d(0, 6%, 0);
+  }
+  to {
+    transform: translate3d(0, -6%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-bg--photo::before {
+    animation: none;
+  }
+}
+
+.lg-bg--solid {
+  background: #e9edf5;
+}
+
+/* Bold diagonals: NON-periodic enough that edge refraction is unmistakable.
+   (A periodic grid hides displacement — diagonals reveal it.) */
+.lg-bg--stripes {
+  background: repeating-linear-gradient(45deg, #173a7a 0 6px, #cdd9ee 6px 34px);
+}
+
+/* Concentric rings: sharp, non-periodic detail → the lens distortion +
+   chromatic aberration are fully visible. Best backdrop to judge the effect. */
+.lg-bg--rings {
+  background: repeating-radial-gradient(circle at 50% 42%, #12306e 0 8px, #d7e2f4 8px 30px);
+}

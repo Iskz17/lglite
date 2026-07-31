@@ -1,0 +1,60 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-scroll {
+    position: relative;
+    overflow: hidden;
+  }
+  .lg-scroll__viewport {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+  .lg-scroll__bar {
+    display: flex;
+    touch-action: none;
+    user-select: none;
+    padding: 1px;
+    background: transparent;
+    transition: background var(--glass-duration-fast) var(--glass-ease);
+  }
+  .lg-scroll__bar[data-orientation="vertical"] {
+    width: 0.6rem;
+    height: 100%;
+  }
+  .lg-scroll__bar[data-orientation="horizontal"] {
+    flex-direction: column;
+    height: 0.6rem;
+    width: 100%;
+  }
+  /* frosted Liquid Glass thumb: tint fill + rim + small blur */
+  .lg-scroll__thumb {
+    position: relative;
+    flex: 1;
+    border-radius: 9999px;
+    background: rgb(var(--glass-tint) / var(--glass-tint-opacity));
+    border: var(--glass-rim-width) solid rgb(var(--glass-rim) / 0.5);
+    backdrop-filter: blur(4px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(4px) saturate(var(--glass-saturation));
+    transition: background var(--glass-duration-fast) var(--glass-ease);
+  }
+  .lg-scroll__thumb:hover {
+    background: rgb(var(--glass-rim) / 0.55);
+  }
+  .lg-scroll__corner {
+    background: transparent;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-scroll__bar,
+    .lg-scroll__thumb {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    .lg-scroll__thumb {
+      background: CanvasText;
+      border-color: CanvasText;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+}

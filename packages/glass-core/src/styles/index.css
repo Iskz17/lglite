@@ -1,0 +1,11 @@
+/* Declare layer order once so cascade is deterministic regardless of import order.
+   a11y is a TOP-LEVEL layer declared LAST (not a sub-layer of surface): a layer's
+   own direct rules outrank its sub-layers, so as `lglite.surface.a11y` it lost to
+   surface.css's own `[data-lg-refraction]` rule and refraction stayed on under
+   forced-colors. Top-level-last guarantees the a11y overrides win. */
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+
+@import "./tokens.css";
+@import "./surface.css";
+@import "./a11y.css";
+@import "./noise.css";

@@ -1,0 +1,84 @@
+@layer lglite.tokens {
+  :root,
+  [data-lg-theme="light"] {
+    /* fill / tint */
+    --glass-tint: 255 255 255;
+    --glass-tint-opacity: 0.1;
+    --glass-saturation: 150%;
+    /* extra backdrop-filter functions appended to every glass surface (empty by
+       default). Set globally or per-instance, e.g. `brightness(1.08) contrast(1.05)`. */
+    --glass-backdrop-extra: ;
+    /* blur — open/interior frost, and the (sharper) refraction-band frost.
+       --glass-rim-blur must be ≤ --glass-blur; the lens adds the difference. */
+    --glass-blur: 2px;
+    --glass-rim-blur: 4px;
+    /* rim / specular — bright luminous edge, like Apple */
+    --glass-rim: 255 255 255;
+    --glass-rim-opacity: 0.7;
+    --glass-rim-width: 1px;
+    /* subtle neutral edge shown when refraction is ON (the bright white rim is
+       dropped — the luminous edge then comes from the refracted backdrop). */
+    --glass-edge: 215 215 215;
+    --glass-edge-opacity: 0.185;
+    /* depth + texture */
+    --glass-inner-shadow:
+      inset 0 1px 1px rgb(255 255 255 / 0.85),
+      inset 1px 0 1px rgb(255 255 255 / 0.5),
+      inset -1px 0 1px rgb(255 255 255 / 0.5),
+      inset 0 -1px 1px rgb(255 255 255 / 0.4),
+      inset 0 0 12px rgb(255 255 255 / 0.15);
+    --glass-shadow: 0 10px 34px rgb(0 0 0 / 0.22);
+    --glass-noise-opacity: 0.05;
+    --glass-noise-url: none;
+    /* shape + motion */
+    --glass-radius: 16px;
+    --glass-ease: cubic-bezier(0.32, 0.72, 0, 1);
+    --glass-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --glass-duration: 220ms;
+    --glass-duration-fast: 140ms;
+    --glass-duration-slow: 360ms;
+    /* text */
+    --glass-fg: 17 17 19;
+    --glass-fg-muted: 110 110 115;
+    /* plate (guaranteed-contrast surface for text) */
+    --glass-plate-bg: 255 255 255;
+    --glass-plate-opacity: 0.82;
+    /* tone accents */
+    --glass-tone-primary: 10 132 255;
+    --glass-tone-destructive: 255 69 58;
+    --glass-tone-success: 48 209 88;
+    --glass-tone-warning: 255 159 10;
+  }
+
+  [data-lg-theme="dark"] {
+    --glass-tint: 20 20 22;
+    --glass-tint-opacity: 0.55;
+    --glass-rim-opacity: 0.3;
+    --glass-inner-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1);
+    --glass-fg: 245 245 247;
+    --glass-fg-muted: 170 170 176;
+    --glass-plate-bg: 28 28 30;
+  }
+
+  /* The single border color every glass edge references. Declared on :root ONLY
+     (not the theme selectors) so a <GlassProvider data-lg-theme> wrapper can't
+     re-set it below the refraction flip. The inner var()s still resolve per-theme
+     at use-time, so the bright rim stays theme-correct. */
+  :root {
+    --glass-rim-color: rgb(var(--glass-rim) / var(--glass-rim-opacity));
+  }
+  /* Refraction ON → flip the shared edge color to the subtle neutral edge. Because
+     every glass border (surface + bespoke controls) references --glass-rim-color,
+     this one rule restyles all of them at once. Same specificity as :root, declared
+     after it → wins. */
+  [data-lg-refraction="on"] {
+    --glass-rim-color: rgb(var(--glass-edge) / var(--glass-edge-opacity));
+  }
+
+  /* contrast="aa": opaque plates + AA-safe (darkened) tone accents */
+  [data-lg-contrast="aa"] {
+    --glass-plate-opacity: 1;
+    --glass-tone-primary: 0 102 204;
+    --glass-tone-destructive: 204 42 32;
+  }
+}

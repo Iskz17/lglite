@@ -1,0 +1,112 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-input {
+    width: 100%;
+    height: 2.5rem;
+    padding-inline: 0.75rem;
+    border-radius: calc(var(--glass-radius) - 4px);
+    color: rgb(var(--glass-fg));
+    font: inherit;
+    background: rgb(var(--glass-tint) / calc(var(--glass-tint-opacity) + 0.04));
+    backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.12);
+    transition:
+      border-color var(--glass-duration) var(--glass-ease),
+      box-shadow var(--glass-duration) var(--glass-ease);
+  }
+  /* Liquid Glass: when the lens hook has set --lg-rim-filter (Chromium), route the
+     input's own backdrop-filter through it. This rule lives in the components layer
+     so it beats the plain .lg-input backdrop-filter above (surface.css's .lg-lens
+     rule is in the earlier `surface` layer and would lose). a11y.css (last layer)
+     still strips it under forced-colors / reduced-transparency. */
+  [data-lg-refraction="on"] .lg-input.lg-lens,
+  [data-lg-refraction="on"] .lg-input-wrap.lg-lens {
+    backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation))
+      var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+    -webkit-backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation))
+      var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+  }
+  .lg-input::placeholder {
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-input--sm {
+    height: 2rem;
+    font-size: 0.875rem;
+  }
+  .lg-input--lg {
+    height: 3rem;
+    font-size: 1.125rem;
+  }
+  .lg-input:focus-visible {
+    border-color: rgb(var(--glass-tone-primary));
+    outline: 2px solid rgb(var(--glass-tone-primary));
+    outline-offset: 2px;
+  }
+  .lg-input[aria-invalid="true"] {
+    border-color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-input[aria-invalid="true"]:focus-visible {
+    outline-color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-input:disabled {
+    opacity: 0.5;
+  }
+  /* Inset → opaque fill in aa / when plated (kills the small blur) */
+  [data-lg-contrast="aa"] .lg-input,
+  .lg-input[data-plate] {
+    background: rgb(var(--glass-plate-bg));
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  /* adorned: the WRAPPER becomes the field (icons sit inside the border); the
+     inner input goes bare so there isn't a double border. */
+  .lg-input-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 2.5rem;
+    padding-inline: 0.75rem;
+    border-radius: calc(var(--glass-radius) - 4px);
+    color: rgb(var(--glass-fg-muted));
+    background: rgb(var(--glass-tint) / calc(var(--glass-tint-opacity) + 0.04));
+    backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    box-shadow: inset 0 1px 3px rgb(0 0 0 / 0.12);
+    transition: border-color var(--glass-duration) var(--glass-ease);
+  }
+  .lg-input-wrap:focus-within {
+    border-color: rgb(var(--glass-tone-primary));
+    outline: 2px solid rgb(var(--glass-tone-primary));
+    outline-offset: 2px;
+  }
+  .lg-input-wrap[data-invalid] {
+    border-color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-input-wrap[data-disabled] {
+    opacity: 0.5;
+  }
+  .lg-input-wrap .lg-input {
+    flex: 1;
+    height: auto;
+    padding-inline: 0;
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    outline: none;
+  }
+  .lg-input-wrap .lg-input:focus-visible {
+    outline: none;
+  }
+  [data-lg-contrast="aa"] .lg-input-wrap,
+  .lg-input-wrap:has(.lg-input[data-plate]) {
+    background: rgb(var(--glass-plate-bg));
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

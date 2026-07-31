@@ -1,0 +1,25 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-progress {
+    position: relative;
+    width: 100%;
+    height: 0.5rem;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgb(var(--glass-tint) / calc(var(--glass-tint-opacity) + 0.06));
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    box-shadow: var(--glass-inner-shadow);
+  }
+  .lg-progress__indicator {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: rgb(var(--glass-tone-primary));
+    transition: transform var(--glass-duration) var(--glass-ease);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-progress__indicator {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-skeleton {
+    border-radius: var(--glass-radius);
+    background-color: rgb(var(--glass-fg-muted) / 0.18);
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgb(var(--glass-fg-muted) / 0.12),
+      transparent
+    );
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+    animation: lg-skeleton-shimmer 1.5s ease-in-out infinite;
+  }
+  @keyframes lg-skeleton-shimmer {
+    from {
+      background-position: -100% 0;
+    }
+    to {
+      background-position: 200% 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-skeleton {
+      background-image: none;
+      animation: none;
+    }
+  }
+}

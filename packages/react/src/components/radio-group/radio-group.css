@@ -1,0 +1,59 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .lg-radio {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.05rem;
+    height: 1.05rem;
+    flex-shrink: 0;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    /* glass circle: tint fill + real rim border + inner shadow, NO blur (perf). */
+    background: rgb(var(--glass-tint) / calc(var(--glass-tint-opacity) + 0.08));
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    box-shadow: var(--glass-inner-shadow);
+    transition: border-color var(--glass-duration) var(--glass-ease);
+  }
+  .lg-radio[data-state="checked"] {
+    border-color: rgb(var(--glass-tone-primary));
+  }
+  .lg-radio:focus-visible {
+    outline: 2px solid rgb(var(--glass-fg));
+    outline-offset: 2px;
+  }
+  .lg-radio[data-disabled] {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .lg-radio__indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .lg-radio__indicator::after {
+    content: "";
+    display: block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: rgb(var(--glass-tone-primary));
+  }
+  @media (forced-colors: active) {
+    /* Keep a visible boundary + a system-color dot in forced-colors. */
+    .lg-radio[data-state="checked"] {
+      border-color: Highlight;
+    }
+    .lg-radio__indicator::after {
+      background: Highlight;
+    }
+  }
+}

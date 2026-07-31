@@ -1,0 +1,56 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+/* UNLAYERED on purpose: the engine's `.lg-surface { overflow: clip }` (surface layer)
+   would otherwise clip the magnified icons at the bar edge. Relying on
+   `components`-beats-`surface` layer order is fragile (component CSS loads via JS
+   import, so the canonical @layer order isn't always established first). An unlayered
+   rule beats every @layer regardless of load order. The glass fill/blur still clip to
+   border-radius automatically; only the child icons escape. */
+.lg-dock {
+  overflow: visible;
+}
+
+@layer lglite.components {
+  .lg-dock {
+    position: relative; /* items' offsetLeft is measured against the bar */
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--glass-radius);
+  }
+
+  .lg-dock__item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    flex: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    border-radius: calc(var(--glass-radius) - 4px);
+    color: rgb(var(--glass-fg));
+    font: inherit;
+    cursor: pointer;
+    transform-origin: bottom center; /* magnify grows up from the bar */
+    /* transform is driven by the JS spring; no CSS transition (would double-animate) */
+  }
+  .lg-dock__item > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .lg-dock__item:focus-visible {
+    outline: 2px solid rgb(var(--glass-fg));
+    outline-offset: 2px;
+  }
+  /* the hover/focus label is the real <Tooltip> (portalled, never clipped) */
+
+  @media (prefers-reduced-motion: reduce) {
+    /* magnification is purely decorative → no transform */
+    .lg-dock__item {
+      transform: none !important;
+    }
+  }
+}

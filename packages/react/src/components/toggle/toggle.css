@@ -1,0 +1,58 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    color: rgb(var(--glass-fg));
+    background: transparent;
+    border: var(--glass-rim-width) solid transparent;
+    border-radius: calc(var(--glass-radius) - 4px);
+    /* colour/bg only — no movement transform (reduced-motion safe) */
+    transition:
+      background-color var(--glass-duration) var(--glass-ease),
+      color var(--glass-duration) var(--glass-ease),
+      border-color var(--glass-duration) var(--glass-ease);
+  }
+  .lg-toggle:hover {
+    background: rgb(var(--glass-tint) / calc(var(--glass-tint-opacity) + 0.1));
+  }
+  /* pressed: tone-primary tint fill + strong foreground */
+  .lg-toggle[data-state="on"] {
+    background: rgb(var(--glass-tone-primary) / 0.22);
+    color: rgb(var(--glass-fg-strong));
+  }
+  .lg-toggle:focus-visible {
+    outline: 2px solid rgb(var(--glass-tone-primary));
+    outline-offset: 2px;
+  }
+  .lg-toggle[data-disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+    color: rgb(var(--glass-fg-muted));
+  }
+  /* outline: a real border (survives forced-colors) */
+  .lg-toggle--outline {
+    border-color: var(--glass-rim-color);
+  }
+  /* sizes mirror Button */
+  .lg-toggle--sm {
+    height: 2rem;
+    padding-inline: 0.625rem;
+    font-size: 0.875rem;
+  }
+  .lg-toggle--md {
+    height: 2.5rem;
+    padding-inline: 0.875rem;
+  }
+  .lg-toggle--lg {
+    height: 3rem;
+    padding-inline: 1.25rem;
+    font-size: 1.125rem;
+  }
+}

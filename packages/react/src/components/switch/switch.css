@@ -1,0 +1,73 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-switch {
+    position: relative;
+    width: 2.75rem;
+    height: 1.5rem;
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    background: rgb(var(--glass-tint) / calc(var(--glass-tint-opacity) + 0.08));
+    backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    box-shadow: var(--glass-inner-shadow);
+    transition: background-color var(--glass-duration) var(--glass-ease);
+  }
+  /* Liquid Glass: route the track's backdrop-filter through the rim filter when the
+     lens hook has set --lg-rim-filter. MUST be here in the components layer to beat
+     .lg-switch's own blur() above (surface.css's .lg-lens rule is in the earlier
+     surface layer and loses). a11y.css (last layer) still strips it. */
+  [data-lg-refraction="on"] .lg-switch.lg-lens {
+    backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation))
+      var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+    -webkit-backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation))
+      var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+  }
+  .lg-switch[data-state="checked"] {
+    background: rgb(var(--glass-tone-primary));
+  }
+  .lg-switch[data-tone="default"][data-state="checked"] {
+    background: rgb(var(--glass-fg) / 0.55);
+  }
+  .lg-switch:focus-visible {
+    outline: 2px solid rgb(var(--glass-tone-primary));
+    outline-offset: 2px;
+  }
+  .lg-switch__thumb {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: 999px;
+    background: #fff;
+    /* real border (not just shadow) so the thumb keeps ≥3:1 vs a light/neutral
+       track — 1.4.11 ([spec 18]); shadows don't count toward non-text contrast. */
+    border: 1px solid rgb(0 0 0 / 0.22);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+    transform: translateX(0.1875rem);
+    transition: transform var(--glass-duration) var(--glass-ease);
+  }
+  .lg-switch[data-state="checked"] .lg-switch__thumb {
+    transform: translateX(1.4375rem);
+  }
+  .lg-switch--sm {
+    width: 2.25rem;
+    height: 1.25rem;
+  }
+  .lg-switch--sm .lg-switch__thumb {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  .lg-switch--sm[data-state="checked"] .lg-switch__thumb {
+    transform: translateX(1.125rem);
+  }
+  .lg-switch:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-switch__thumb {
+      transition: transform 1ms linear;
+    }
+  }
+}

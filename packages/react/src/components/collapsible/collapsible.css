@@ -1,0 +1,34 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-collapsible__content {
+    overflow: hidden;
+  }
+  .lg-collapsible__content[data-state="open"] {
+    animation: lg-collapsible-down var(--glass-duration) var(--glass-ease);
+  }
+  .lg-collapsible__content[data-state="closed"] {
+    animation: lg-collapsible-up var(--glass-duration) var(--glass-ease);
+  }
+  @keyframes lg-collapsible-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-collapsible-content-height);
+    }
+  }
+  @keyframes lg-collapsible-up {
+    from {
+      height: var(--radix-collapsible-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-collapsible__content[data-state="open"],
+    .lg-collapsible__content[data-state="closed"] {
+      animation: none;
+    }
+  }
+}

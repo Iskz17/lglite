@@ -1,0 +1,124 @@
+/* Top-level layer declared LAST (see index.css) so these overrides beat the
+   refraction rule in lglite.surface, not just by file order but by layer order. */
+@layer lglite.a11y {
+  @media (prefers-contrast: more), (forced-colors: active) {
+    .lg-surface {
+      background: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lg-surface:focus-visible {
+      outline-color: Highlight;
+      box-shadow: none;
+    }
+  }
+
+  /* Forced-colors fallbacks for the bespoke Control/Inset/Surface classes that
+     are NOT .lg-surface (specs 17-24): collapse glass to system colors with a
+     real boundary, and keep state distinguishable (checked/range = Highlight). */
+  @media (forced-colors: active) {
+    .lg-input,
+    .lg-input-wrap,
+    .lg-otp__slot {
+      background: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lg-switch,
+    .lg-slider__track {
+      background: Canvas;
+      border-color: CanvasText;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lg-switch[data-state="checked"] {
+      background: Highlight;
+    }
+    .lg-switch__thumb {
+      background: CanvasText;
+    }
+    .lg-slider__range {
+      background: Highlight;
+    }
+    .lg-slider__thumb {
+      background: ButtonFace;
+      border-color: CanvasText;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lg-tabs__indicator {
+      background: Highlight;
+      box-shadow: none;
+    }
+    .lg-tabs__trigger[data-state="active"] {
+      color: HighlightText;
+    }
+    .lg-badge {
+      border: 1px solid CanvasText;
+      color: CanvasText;
+      background: Canvas;
+    }
+    .lg-badge--solid {
+      background: Highlight;
+      color: HighlightText;
+    }
+    /* previously-missed bespoke controls */
+    .lg-checkbox,
+    .lg-radio,
+    .lg-progress {
+      background: Canvas;
+      border-color: CanvasText;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    /* bespoke glass added with the Liquid Glass pass (avatar/resizable/scroll) */
+    .lg-avatar__fallback,
+    .lg-resizable__grip {
+      background: Canvas;
+      color: CanvasText;
+      border-color: CanvasText;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lg-resizable__handle {
+      background: CanvasText;
+      border-color: CanvasText;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .lg-scroll__thumb {
+      background: CanvasText;
+      border-color: CanvasText;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .lg-surface {
+      --glass-tint-opacity: 0.92;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lg-surface {
+      transition: none;
+    }
+  }
+
+  /* manual escape hatch (prefers-reduced-transparency can't reach Safari users) */
+  [data-lg-reduce-glass="true"] .lg-surface {
+    --glass-tint-opacity: 0.92;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

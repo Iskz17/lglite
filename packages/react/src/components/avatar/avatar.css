@@ -1,0 +1,50 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-avatar {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    overflow: hidden;
+    border-radius: 999px;
+    user-select: none;
+    vertical-align: middle;
+  }
+  /* optional glass ring: rim border + subtle shadow, no backdrop-filter */
+  .lg-avatar--ring {
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+  }
+  .lg-avatar__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+  /* bespoke control glass: tint fill + rim border + small blur */
+  .lg-avatar__fallback {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgb(var(--glass-fg));
+    background: rgb(var(--glass-tint) / var(--glass-tint-opacity));
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+    backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(6px) saturate(var(--glass-saturation));
+    border-radius: inherit;
+  }
+  /* Liquid Glass: route the fallback's backdrop-filter through the lens (Chromium). */
+  [data-lg-refraction="on"] .lg-avatar__fallback.lg-lens {
+    backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation))
+      var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+    -webkit-backdrop-filter: blur(var(--glass-rim-blur)) saturate(var(--glass-saturation))
+      var(--glass-backdrop-extra, ) var(--lg-rim-filter, );
+  }
+}

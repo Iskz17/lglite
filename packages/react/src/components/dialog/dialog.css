@@ -1,0 +1,70 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-dialog__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgb(0 0 0 / 0.4);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .lg-dialog {
+    position: fixed;
+    z-index: 51;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    width: min(92vw, 32rem);
+    max-height: 85vh;
+    overflow: auto;
+    padding: 1.5rem;
+    border-radius: calc(var(--glass-radius) + 4px);
+  }
+  .lg-dialog--plate {
+    background: rgb(var(--glass-plate-bg) / var(--glass-plate-opacity));
+  }
+  .lg-dialog__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .lg-dialog__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: rgb(var(--glass-fg));
+  }
+  .lg-dialog__desc {
+    margin: 0.25rem 0 0;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-dialog__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lg-dialog[data-state="open"] {
+      animation: lg-dialog-in var(--glass-duration) var(--glass-ease);
+    }
+    .lg-dialog[data-state="closed"] {
+      animation: lg-dialog-out var(--glass-duration-fast) var(--glass-ease);
+    }
+    .lg-dialog__overlay[data-state="open"] {
+      animation: lg-fade-in var(--glass-duration) var(--glass-ease);
+    }
+  }
+  @keyframes lg-dialog-in {
+    from { opacity: 0; scale: 0.96; }
+    to { opacity: 1; scale: 1; }
+  }
+  @keyframes lg-dialog-out {
+    from { opacity: 1; scale: 1; }
+    to { opacity: 0; scale: 0.96; }
+  }
+  @keyframes lg-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}

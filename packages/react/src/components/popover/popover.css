@@ -1,0 +1,24 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-popover {
+    z-index: 50;
+    min-width: 12rem;
+    max-width: min(92vw, 22rem);
+    padding: 1rem;
+    border-radius: var(--glass-radius);
+    transform-origin: var(--radix-popover-content-transform-origin);
+  }
+  .lg-popover__arrow {
+    fill: rgb(var(--glass-tint) / var(--glass-tint-opacity));
+  }
+
+  /* lg-pop-in / lg-pop-out keyframes live in glass-core surface.css (always loaded) */
+  @media (prefers-reduced-motion: no-preference) {
+    .lg-popover[data-state="open"] {
+      animation: lg-pop-in var(--glass-duration) var(--glass-ease);
+    }
+    .lg-popover[data-state="closed"] {
+      animation: lg-pop-out var(--glass-duration-fast) var(--glass-ease);
+    }
+  }
+}

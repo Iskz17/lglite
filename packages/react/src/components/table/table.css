@@ -1,0 +1,46 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-table__wrap {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .lg-table {
+    width: 100%;
+    caption-side: bottom;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    color: rgb(var(--glass-fg));
+  }
+  .lg-table__caption {
+    margin-top: 0.75rem;
+    color: rgb(var(--glass-fg-muted));
+    font-size: 0.875rem;
+  }
+  .lg-table__row {
+    border-bottom: 1px solid rgb(var(--glass-rim) / 0.3);
+    transition: background-color var(--glass-duration-fast) var(--glass-ease);
+  }
+  .lg-table__body .lg-table__row:hover {
+    background-color: rgb(var(--glass-tint) / 0.08);
+  }
+  .lg-table__head {
+    height: 2.75rem;
+    padding: 0 0.75rem;
+    text-align: left;
+    vertical-align: middle;
+    font-weight: 500;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-table__cell {
+    padding: 0.75rem;
+    vertical-align: middle;
+  }
+  .lg-table__footer {
+    border-top: 1px solid rgb(var(--glass-rim) / 0.3);
+    font-weight: 500;
+  }
+  .lg-table__footer .lg-table__row:hover {
+    background-color: transparent;
+  }
+}

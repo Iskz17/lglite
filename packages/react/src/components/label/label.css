@@ -1,0 +1,15 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1;
+    color: rgb(var(--glass-fg));
+    user-select: none;
+  }
+  .lg-label:has(~ :disabled),
+  .lg-label[data-disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,56 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-carousel {
+    position: relative;
+  }
+  /* glass frame: pad so the surface reads around the slides */
+  .lg-carousel.lg-surface {
+    padding: 1rem;
+  }
+  .lg-carousel__viewport {
+    overflow: hidden;
+    border-radius: inherit;
+  }
+  .lg-carousel__track {
+    display: flex;
+  }
+  .lg-carousel__track[data-orientation="vertical"] {
+    flex-direction: column;
+  }
+  .lg-carousel__item {
+    min-width: 0;
+    flex: 0 0 100%;
+    padding-left: 1rem;
+  }
+  .lg-carousel__track[data-orientation="vertical"] > .lg-carousel__item {
+    padding-left: 0;
+    padding-top: 1rem;
+  }
+  .lg-carousel__prev,
+  .lg-carousel__next {
+    position: absolute;
+    z-index: 1;
+  }
+  /* horizontal: arrows flank the viewport on the left/right edges */
+  .lg-carousel__prev[data-orientation="horizontal"] {
+    top: 50%;
+    left: -1.25rem;
+    transform: translateY(-50%);
+  }
+  .lg-carousel__next[data-orientation="horizontal"] {
+    top: 50%;
+    right: -1.25rem;
+    transform: translateY(-50%);
+  }
+  /* vertical: arrows sit above/below, rotated chevrons */
+  .lg-carousel__prev[data-orientation="vertical"] {
+    left: 50%;
+    top: -1.25rem;
+    transform: translateX(-50%) rotate(90deg);
+  }
+  .lg-carousel__next[data-orientation="vertical"] {
+    left: 50%;
+    bottom: -1.25rem;
+    transform: translateX(-50%) rotate(90deg);
+  }
+}

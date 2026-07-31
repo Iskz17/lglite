@@ -1,0 +1,11 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-data-table {
+    width: 100%;
+  }
+  .lg-data-table__empty {
+    height: 6rem;
+    text-align: center;
+    color: rgb(var(--glass-fg-muted));
+  }
+}

@@ -1,0 +1,32 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+  }
+  .lg-card__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .lg-card__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: rgb(var(--glass-fg));
+  }
+  .lg-card__desc {
+    margin: 0;
+    font-size: 0.875rem;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-card__content {
+    padding-block: 0.75rem;
+  }
+  .lg-card__footer {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+  }
+}

@@ -1,0 +1,30 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  /* Trigger lays the value + chevron on a row; chevron parks at the trailing edge. */
+  .lg-combobox__trigger {
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .lg-combobox__value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .lg-combobox__chevron {
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+  /* PopoverContent owns the rim padding; the Command fills it edge-to-edge. */
+  .lg-combobox__content {
+    padding: 0;
+    width: var(--radix-popover-trigger-width);
+  }
+  /* Each item is label + trailing check, matching the menu item row. */
+  .lg-combobox__item-label {
+    flex: 1;
+  }
+  .lg-combobox__check {
+    flex-shrink: 0;
+    color: rgb(var(--glass-fg));
+  }
+}

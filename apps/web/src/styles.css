@@ -1,0 +1,676 @@
+/* LGLite landing page: "the test sheet". Glass is invisible until it bends
+   something, so the page is printed like an optical calibration sheet (lab paper,
+   fine grids, specimen glyphs, token-color bars) and the real glass components sit
+   on top, bending it. Display face: Archivo 900. Annotations: mono. Body: system.
+   The process colors ARE the library's tone tokens (0A84FF / 30D158 / FF453A). */
+
+* {
+  box-sizing: border-box;
+}
+:root {
+  --ink: #0f1115;
+  --ink-60: rgb(15 17 21 / 0.6);
+  --ink-15: rgb(15 17 21 / 0.15);
+  --paper: #edf0f5;
+  --paper-2: #e2e7ef;
+  --blue: #0a84ff;
+  --green: #30d158;
+  --red: #ff453a;
+  --display: "Archivo", -apple-system, "Segoe UI", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+h1,
+h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+h2 {
+  font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+  text-transform: uppercase;
+}
+section {
+  position: relative;
+  padding: 6rem 1.5rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+/* mono annotation: the sheet's measurement-label voice */
+.anno {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+section > .anno {
+  margin-bottom: 1rem;
+}
+.section-sub {
+  max-width: 44rem;
+  color: var(--ink-60);
+  line-height: 1.65;
+  margin: 1rem 0 2.5rem;
+}
+
+/* ---------- the printed field (hero + outro) ---------- */
+.field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* fine calibration grid */
+  background-image:
+    linear-gradient(var(--ink-15) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ink-15) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+.field__word {
+  position: absolute;
+  left: -0.04em;
+  bottom: -0.16em;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(9rem, 30vw, 26rem);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* the letterforms slide under the glass (dock/card) so the edge refraction
+     visibly churns. Transform on a SIBLING behind the glass — never an ancestor,
+     an ancestor transform becomes the backdrop root and kills refraction. */
+  .field__word {
+    will-change: transform;
+    animation: lg-word-slide 14s ease-in-out infinite alternate;
+  }
+  @keyframes lg-word-slide {
+    from {
+      transform: translate3d(-2vw, 0, 0);
+    }
+    to {
+      transform: translate3d(4vw, 0, 0);
+    }
+  }
+}
+.field__bars {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(2.5rem, 6vw, 4.5rem);
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    var(--blue) 0 25%,
+    var(--green) 25% 50%,
+    var(--red) 50% 75%,
+    var(--ink) 75% 100%
+  );
+}
+.field__rings {
+  position: absolute;
+  top: -140px;
+  left: -140px;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle at 50% 50%, var(--ink) 0 3px, transparent 3px 26px);
+  opacity: 0.5;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.25rem 1.5rem 2rem;
+  border-bottom: 2px solid var(--ink);
+  overflow: clip;
+}
+/* everything except the printed field stacks above it; the :not() matters — a
+   blanket `> *` would override the field's absolute positioning and clip it away */
+.hero > :not(.field) {
+  position: relative;
+  z-index: 1;
+}
+.hero__nav {
+  width: min(960px, 100%);
+}
+.hero__nav a {
+  color: inherit;
+  text-decoration: none;
+}
+.hero__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2.5rem 0;
+}
+.hero__card {
+  width: min(560px, 100%);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* the lens drifts on two axes so its edges keep crossing letterform strokes:
+     you SEE the bend travel. This is measurement, not decoration. */
+  .hero__card {
+    animation: lg-drift 8s ease-in-out infinite alternate;
+  }
+  @keyframes lg-drift {
+    from {
+      transform: translate(-9px, -8px);
+    }
+    to {
+      transform: translate(9px, 10px);
+    }
+  }
+}
+.hero__cardBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+.hero__cardBody h1 {
+  font-size: clamp(2.4rem, 5.2vw, 3.6rem);
+  text-transform: uppercase;
+}
+.hero__cardBody p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--ink-60);
+}
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.hero__cta a {
+  text-decoration: none;
+}
+.hero__legend {
+  margin-top: 1.25rem;
+  max-width: 34rem;
+  text-align: center;
+}
+.hero__dock {
+  margin-top: auto;
+}
+
+/* ---------- snippet ---------- */
+.snippet {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.55rem 0.55rem 0.9rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.92rem;
+}
+.snippet__copy {
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.78rem;
+  padding: 0.22rem 0.6rem;
+  cursor: pointer;
+}
+.snippet__copy:hover {
+  background: rgb(255 255 255 / 0.18);
+}
+
+/* ---------- playground ---------- */
+.knobs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.9rem 1.1rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+  /* not pure white: an unchecked default-tone Switch is at its weakest over #fff */
+  background: var(--paper-2);
+}
+@media (max-width: 560px) {
+  .nav-anchor {
+    display: none;
+  }
+}
+.knob {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.seg {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 11px;
+  border: 1px solid var(--ink-15);
+}
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 440px;
+  border-radius: 18px;
+  border: 1.5px solid var(--ink);
+  padding: 2rem;
+  overflow: clip;
+}
+/* The backdrop lives on an oversized ::before SIBLING layer under the card and pans
+   on a GPU transform, so the glass has live motion to refract (an animated ancestor
+   would become the backdrop root and kill refraction — storybook-proven pattern).
+   Recipes match the storybook's: grid hides displacement, stripes exposes it. */
+.stage::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -18%;
+  height: 136%;
+  z-index: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .stage::before {
+    will-change: transform;
+    animation: lg-stage-pan 7s ease-in-out infinite alternate;
+  }
+  @keyframes lg-stage-pan {
+    from {
+      transform: translate3d(0, 5%, 0);
+    }
+    to {
+      transform: translate3d(0, -5%, 0);
+    }
+  }
+}
+.stage--photo {
+  background: #0b1020;
+}
+.stage--photo::before {
+  background: url("/hero.jpg") center / cover no-repeat;
+}
+.stage--grid {
+  background: #ced9e8;
+}
+.stage--grid::before {
+  background-image: linear-gradient(rgb(30 60 120 / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(30 60 120 / 0.5) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.stage--stripes {
+  background: #cdd9ee;
+}
+.stage--stripes::before {
+  background: repeating-linear-gradient(45deg, #173a7a 0 6px, #cdd9ee 6px 34px);
+}
+.stage__card {
+  position: relative;
+  z-index: 1;
+  width: min(360px, 100%);
+}
+.stage__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.stage__buttons {
+  display: flex;
+  gap: 0.6rem;
+}
+/* page CTAs stay AA in default mode: per-instance override with the library's own
+   AA-blue token value. Stock #0a84ff is 3.6:1 with white, by design glass-first. */
+.aa-primary {
+  --glass-tone-primary: 0 102 204;
+}
+
+/* ---------- motion test: the conveyor ---------- */
+.belt {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 280px;
+  border: 1.5px solid var(--ink);
+  border-radius: 18px;
+  overflow: clip;
+  /* same fine calibration grid as the field */
+  background-color: var(--paper-2);
+  background-image:
+    linear-gradient(var(--ink-15) 1px, transparent 1px),
+    linear-gradient(90deg, var(--ink-15) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+.belt__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+}
+.belt__set {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding-right: 3rem;
+}
+.belt__glyph {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 10rem;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+}
+.belt__dot {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+.belt__dot--blue {
+  background: var(--blue);
+}
+.belt__dot--green {
+  background: var(--green);
+}
+.belt__dot--red {
+  background: var(--red);
+}
+.belt__dot--ink {
+  background: var(--ink);
+}
+.belt__target {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle at 50% 50%, var(--ink) 0 4px, transparent 4px 17px);
+}
+/* the fixed pane: an empty Card, pure lens. Transform on the glass element ITSELF
+   is safe (only animated ANCESTORS break refraction). */
+.belt__lens {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(440px, 72%);
+  height: 190px;
+  z-index: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .belt__track {
+    will-change: transform;
+    animation: lg-belt-run 26s linear infinite;
+  }
+  /* hover pauses the belt so you can inspect the bend at the rim */
+  .belt:hover .belt__track {
+    animation-play-state: paused;
+  }
+  @keyframes lg-belt-run {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+}
+
+/* ---------- specimen catalog ---------- */
+.catalog__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0;
+  border: 1.5px solid var(--ink);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 210px;
+  outline: 1.5px solid var(--ink);
+  content-visibility: auto;
+  contain-intrinsic-size: 250px 210px;
+}
+.cell__tag {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.7rem;
+  z-index: 1;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--ink);
+  border-radius: 6px;
+  background: #fff;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.cell__body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.6rem 1.4rem 1.4rem;
+}
+.cell--grid {
+  background-color: #ced9e8;
+  background-image: linear-gradient(rgb(30 60 120 / 0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(30 60 120 / 0.5) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.cell--stripes {
+  background: repeating-linear-gradient(45deg, #173a7a 0 5px, #cdd9ee 5px 26px);
+}
+.cell--rings {
+  background: #d7e2f4 repeating-radial-gradient(circle at 70% 30%, #12306e 0 6px, #d7e2f4 6px 24px);
+}
+.cell--bars {
+  background: linear-gradient(
+    90deg,
+    #cdd9ee 0 55%,
+    var(--blue) 55% 70%,
+    var(--green) 70% 85%,
+    var(--red) 85% 100%
+  );
+}
+.cell__card {
+  width: 100%;
+}
+.cell__row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* ---------- engine story ---------- */
+.engine__code {
+  display: inline-block;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.88rem;
+}
+.engine__pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.engine__pair figure {
+  margin: 0;
+}
+.engine__pair img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+  border: 1.5px solid var(--ink);
+}
+.engine__pair figcaption {
+  margin-top: 0.55rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-60);
+}
+
+/* ---------- outro ---------- */
+.outro {
+  min-height: 52svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  text-align: center;
+  border-top: 2px solid var(--ink);
+  overflow: clip;
+  max-width: none;
+}
+.field--outro {
+  opacity: 0.35;
+}
+.field--outro .field__word {
+  left: auto;
+  right: -0.05em;
+  bottom: auto;
+  top: -0.18em;
+}
+.outro__title {
+  position: relative;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+}
+.outro__actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.outro__actions a {
+  text-decoration: none;
+}
+
+/* ---------- footer ---------- */
+.footer {
+  padding: 1.6rem 1.5rem 2.2rem;
+  border-top: 1.5px solid var(--ink);
+  text-align: center;
+}
+
+/* ---------- micro-interactions (input acknowledgment, 150-300ms) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* page CTAs: lift on hover, settle on press (transform on the element itself
+     is safe; only ANCESTOR transforms break refraction) */
+  .hero__cta .lg-btn,
+  .outro__actions .lg-btn,
+  .stage__buttons .lg-btn {
+    transition: transform 180ms ease, box-shadow 180ms ease;
+  }
+  .hero__cta .lg-btn:hover,
+  .outro__actions .lg-btn:hover,
+  .stage__buttons .lg-btn:hover {
+    transform: translateY(-2px);
+  }
+  .hero__cta .lg-btn:active,
+  .outro__actions .lg-btn:active,
+  .stage__buttons .lg-btn:active {
+    transform: translateY(0) scale(0.97);
+  }
+
+  /* copy button: press feedback + a settle pop when the copy lands */
+  .snippet__copy {
+    transition: background 150ms ease, transform 150ms ease;
+  }
+  .snippet__copy:active {
+    transform: scale(0.94);
+  }
+  .snippet__copy.is-copied {
+    animation: lg-pop 260ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes lg-pop {
+    0% {
+      transform: scale(0.86);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  /* specimen cells: the exhibit leans in, its tag inverts like a selected label.
+     The transform sits on .cell (which PAINTS the pattern) so the glass inside
+     keeps a valid backdrop root; lifting an empty inner wrapper would blank the
+     frost on Chromium (transformed ancestor = new backdrop root). */
+  .cell__tag {
+    transition: background 180ms ease, color 180ms ease;
+  }
+  .cell {
+    transition: transform 220ms ease;
+  }
+  .cell:hover {
+    transform: translateY(-3px);
+  }
+  .cell:hover .cell__tag {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* scroll reveal: pure-CSS view() timeline. Progressive: engines without
+     scroll-driven animations simply show the content (no JS, nothing hidden). */
+  @supports (animation-timeline: view()) {
+    section > .anno,
+    section > h2,
+    .section-sub,
+    .cell,
+    .engine__pair figure {
+      animation: lg-rise both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 42%;
+    }
+    @keyframes lg-rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}

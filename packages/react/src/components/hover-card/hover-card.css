@@ -1,0 +1,7 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  /* Reuses .lg-popover sizing/padding; only the Radix transform-origin var differs. */
+  .lg-hover-card {
+    transform-origin: var(--radix-hover-card-content-transform-origin);
+  }
+}

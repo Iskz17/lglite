@@ -1,0 +1,97 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    color: rgb(var(--glass-fg));
+    border-radius: var(--glass-radius);
+    transition: transform var(--glass-duration) var(--glass-ease);
+  }
+  .lg-btn--sm {
+    height: 2rem;
+    padding-inline: 0.75rem;
+    font-size: 0.875rem;
+  }
+  .lg-btn--md {
+    height: 2.5rem;
+    padding-inline: 1rem;
+  }
+  .lg-btn--lg {
+    height: 3rem;
+    padding-inline: 1.5rem;
+    font-size: 1.125rem;
+  }
+  .lg-btn--icon {
+    height: 2.5rem;
+    width: 2.5rem;
+    padding: 0;
+  }
+  /* solid: filled with the tone colour (default → primary). data-tone overrides it. */
+  .lg-btn--solid {
+    background: rgb(var(--glass-tone-primary));
+    color: #fff;
+    border: 0;
+  }
+  .lg-btn--solid[data-tone="destructive"] {
+    background: rgb(var(--glass-tone-destructive));
+  }
+  .lg-btn--solid[data-tone="success"] {
+    background: rgb(var(--glass-tone-success));
+  }
+  .lg-btn--ghost {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+  .lg-btn--outline {
+    background: transparent;
+    border: var(--glass-rim-width) solid var(--glass-rim-color);
+  }
+  /* outline + ghost: tint the border/text by tone */
+  .lg-btn--outline[data-tone="primary"],
+  .lg-btn--ghost[data-tone="primary"] {
+    color: rgb(var(--glass-tone-primary));
+  }
+  .lg-btn--outline[data-tone="destructive"],
+  .lg-btn--ghost[data-tone="destructive"] {
+    color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-btn--outline[data-tone="success"],
+  .lg-btn--ghost[data-tone="success"] {
+    color: rgb(var(--glass-tone-success));
+  }
+  .lg-btn--outline[data-tone="primary"] {
+    border-color: rgb(var(--glass-tone-primary));
+  }
+  .lg-btn--outline[data-tone="destructive"] {
+    border-color: rgb(var(--glass-tone-destructive));
+  }
+  .lg-btn--outline[data-tone="success"] {
+    border-color: rgb(var(--glass-tone-success));
+  }
+  .lg-btn:hover {
+    transform: translateY(-1px);
+  }
+  .lg-btn:active {
+    transform: scale(0.98);
+  }
+  .lg-btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-btn {
+      transition: none;
+    }
+    .lg-btn:hover,
+    .lg-btn:active {
+      transform: none;
+    }
+  }
+}

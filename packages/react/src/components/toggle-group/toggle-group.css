@@ -1,0 +1,17 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-toggle-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    border-radius: var(--glass-radius);
+  }
+  .lg-toggle-group[data-orientation="vertical"] {
+    flex-direction: column;
+  }
+  /* items sit flat inside the glass bar */
+  .lg-toggle-group__item {
+    background: transparent;
+  }
+}

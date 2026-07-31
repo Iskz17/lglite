@@ -1,0 +1,85 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-accordion {
+    display: block;
+    padding: 0 1.25rem;
+  }
+  .lg-accordion__item {
+    /* row separator: real border so it survives forced-colors */
+    border-bottom: 1px solid rgb(var(--glass-rim) / 0.3);
+  }
+  /* last row sits flush with the panel's bottom — drop its divider */
+  .lg-accordion__item:last-child {
+    border-bottom: 0;
+  }
+  .lg-accordion__header {
+    display: flex;
+    margin: 0;
+  }
+  .lg-accordion__trigger {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem 0;
+    font: inherit;
+    font-weight: 500;
+    text-align: left;
+    color: rgb(var(--glass-fg));
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .lg-accordion__trigger:hover {
+    color: rgb(var(--glass-fg));
+  }
+  .lg-accordion__chevron {
+    flex: 0 0 auto;
+    color: rgb(var(--glass-fg-muted));
+    transition: transform var(--glass-duration) var(--glass-ease);
+  }
+  .lg-accordion__trigger[data-state="open"] .lg-accordion__chevron {
+    transform: rotate(180deg);
+  }
+  .lg-accordion__content {
+    overflow: hidden;
+    font-size: 0.875rem;
+    color: rgb(var(--glass-fg-muted));
+  }
+  .lg-accordion__content[data-state="open"] {
+    animation: lg-accordion-down var(--glass-duration) var(--glass-ease);
+  }
+  .lg-accordion__content[data-state="closed"] {
+    animation: lg-accordion-up var(--glass-duration) var(--glass-ease);
+  }
+  .lg-accordion__content-inner {
+    padding-bottom: 1rem;
+  }
+  @keyframes lg-accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes lg-accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lg-accordion__chevron {
+      transition: none;
+    }
+    .lg-accordion__content[data-state="open"],
+    .lg-accordion__content[data-state="closed"] {
+      animation: none;
+    }
+  }
+}

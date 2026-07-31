@@ -1,0 +1,28 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  .lg-tooltip {
+    z-index: 60;
+    max-width: 18rem;
+    padding: 0.375rem 0.625rem;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    border-radius: calc(var(--glass-radius) - 6px);
+    /* plate-by-default for legibility ([spec 21]) — text never relies on the backdrop */
+    background: rgb(var(--glass-plate-bg) / 0.92);
+    color: rgb(var(--glass-fg));
+    transform-origin: var(--radix-tooltip-content-transform-origin);
+  }
+  .lg-tooltip__arrow {
+    fill: rgb(var(--glass-plate-bg) / 0.92);
+  }
+  /* lg-pop-in / lg-pop-out keyframes live in glass-core surface.css */
+  @media (prefers-reduced-motion: no-preference) {
+    .lg-tooltip[data-state="delayed-open"],
+    .lg-tooltip[data-state="instant-open"] {
+      animation: lg-pop-in var(--glass-duration-fast) var(--glass-ease);
+    }
+    .lg-tooltip[data-state="closed"] {
+      animation: lg-pop-out var(--glass-duration-fast) var(--glass-ease);
+    }
+  }
+}

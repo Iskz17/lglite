@@ -1,0 +1,11 @@
+@layer lglite.tokens, lglite.surface, lglite.components, lglite.a11y;
+@layer lglite.components {
+  /* Inherits the field look from .lg-input; here we only reshape it into a box. */
+  .lg-textarea {
+    height: auto;
+    min-height: 5rem;
+    padding-block: 0.5rem;
+    line-height: 1.5;
+    resize: vertical;
+  }
+}
